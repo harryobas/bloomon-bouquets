@@ -1,8 +1,8 @@
 class Bloomon::Bouquets::Flower
-  attr_reader :qty, :specie
+  attr_accessor :specie
 
-  def initialize(qty, specie)
-    @qty = qty
+  def initialize(specie)
     @specie = specie
   end
+
 end
