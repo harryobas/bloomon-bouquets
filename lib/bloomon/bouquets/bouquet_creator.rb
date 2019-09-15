@@ -12,24 +12,46 @@ class Bloomon::Bouquets::BouquetCreator
     spec_flowers = @spec.flowers
     bouquet_flowers = []
     bouquets_total = @spec.total
-    bouquet = Bloomon::Bouquets::BouquetModel.new(bouquet_name, bouquet_size, bouquet_flowers, bouquets_total)
+    bouquet = Bloomon::Bouquets::BouquetModel.new(bouquet_name, bouquet_size, spec_flowers, bouquet_flowers, bouquets_total)
 
-    populate_bouquet_flowers(bouquet, spec_flowers, @flowers)
+    populate_bouquet_flowers(bouquet,  @flowers)
 
   end
 
   private
 
-  def populate_bouquet_flowers(bouq, spec_f, flowers)
-    spec_f.each do |sf|
-      sf.qty.times do
-        flowers.each do |f|
-          bouq.flowers << Bloomon::Bouquets::Flower.new(f[0]) if f[0] == sf.specie && f[1] == bouq.size
-          bouq.flowers_qty[f[0]] =+ 1
+  def populate_bouquet_flowers(bouq, flowers)
+    bouq.flowers_spec.each do |sf|
+      if flowers.include? "#{sf.specie}#{bouq.size}" and flowers.count("#{sf.specie}#{bouq.size}") >= sf.qty
+        bouq_flowers = flowers.select{|f| f == "#{sf.specie}#{bouq.size}" }.take(sf.qty)
+        bouq.flowers_qty[sf.specie] =+ sf.qty
+
+        bouq_flowers.each do |f|
+          bouq.add_flower Bloomon::Bouquets::Flower.new(f[0])
         end
       end
+
     end
-    bouq
+
+    return bouq if bouquet_is_complete?(bouq)
+    generate_complete_bouquet(bouq, flowers)
+
+  end
+
+  def bouquet_is_complete?(bouquet)
+    bouquet.flowers_qty.values.reduce(&:+) == bouquet.total
+  end
+
+  def generate_complete_bouquet(bouquet, flowers)
+    out_standing_flowers = bouquet.total - bouquet.flowers_qty.values.reduce(&:+)
+    additional_flowers = flowers.take(80).shuffle.select{|f| f[1] == bouquet.size}.take(out_standing_flowers)
+
+    additional_flowers.each do |af|
+      bouquet.add_flower Bloomon::Bouquets::Flower.new(af[0])
+    end
+
+    bouquet 
+
   end
 
 end
