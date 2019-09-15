@@ -29,7 +29,9 @@ class Bloomon::Bouquets::BouquetCreator
         bouq_flowers.each do |f|
           bouq.add_flower Bloomon::Bouquets::Flower.new(f[0])
         end
-      end
+      else
+        return nil
+      end 
 
     end
 
@@ -50,7 +52,7 @@ class Bloomon::Bouquets::BouquetCreator
       bouquet.add_flower Bloomon::Bouquets::Flower.new(af[0])
     end
 
-    bouquet 
+    bouquet
 
   end
 

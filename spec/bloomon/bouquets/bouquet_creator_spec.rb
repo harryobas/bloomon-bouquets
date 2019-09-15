@@ -35,6 +35,20 @@ RSpec.describe Bloomon::Bouquets::BouquetCreator do
         expect(bouq_creator.create_bouquet.flowers_qty.values.reduce(&:+)).to eq spec.flowers.map { |e| e.qty }.reduce(&:+)
       end
     end
+    context 'all flower specs not found im flowers list' do
+      spec_flowers = [
+        Bloomon::Bouquets::FlowerSpecification.new(3, 'f'),
+        Bloomon::Bouquets::FlowerSpecification.new(5, 'c'),
+        Bloomon::Bouquets::FlowerSpecification.new(8, 'a')
+      ]
+      spec = Bloomon::Bouquets::BouquetSpecification.new("A", "L", spec_flowers, 20)
+      it 'returns nil' do
+        bouq_creator = Bloomon::Bouquets::BouquetCreator.new(spec, flowers)
+        expect(bouq_creator.create_bouquet).to eq nil 
+
+      end
+
+    end
   end
 
 end
