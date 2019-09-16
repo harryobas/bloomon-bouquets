@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 
+require "bundler/setup"
 require "bloomon/bouquets"
 
 def read_file(path)
   contents = File.read
 rescue Errno::ENOENT => e
-  abort "#{path} not found"
+  abort "#{path} not found".red
 end
 
 def prepare_data(contents)
@@ -41,5 +42,11 @@ def main(file)
   flowers = get_flowers(data)
 
   bouquets = generate_bouquets bouquet_specs, flowers
-  bouquets.each {|b| puts b.to_s}
+  bouquets.each {|b| puts (b.to_s).green}
+end
+
+abort "bouquet [file_path]".red if ARGV[0].nil?
+
+if __FILE__ == $PROGRAM_NAME
+  main(ARGV[0])
 end
