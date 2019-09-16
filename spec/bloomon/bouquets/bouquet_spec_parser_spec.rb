@@ -16,8 +16,14 @@ RSpec.describe Bloomon::Bouquets::BouquetSpecParser do
     end
     context 'bouquet spec string length is 9' do
       it 'returns a hash of spec attributes' do
-          attrs = Bloomon::Bouquets::BouquetSpecParser.parse_spec "BS10b5c16"
-          expect(attrs).to be_a Hash
+        attrs = Bloomon::Bouquets::BouquetSpecParser.parse_spec "BS10b5c16"
+        expect(attrs).to be_a Hash
+      end
+    end
+    context 'bouquet spec string length is 7' do
+      it 'returns a hash of spec attributes' do
+        attrs = Bloomon::Bouquets::BouquetSpecParser.parse_spec "DL20b28"
+        expect(attrs).to be_a Hash
       end
     end
   end
