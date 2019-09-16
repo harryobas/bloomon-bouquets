@@ -15,5 +15,19 @@ class Bloomon::Bouquets::BouquetModel
     flowers.push flower
   end
 
+  def to_s
+    f = self.flowers.map{|fl| stringify(fl, @flowers_spec)}.join
+    "#{name}#{size}#{f}#{total}"
+  end
 
+  private
+
+  def stringify(f, f_spec)
+    f_spec.each do |fs|
+      if fs.specie == f.specie
+        f = "#{fs.qty}#{f.specie}"
+      end
+    end
+    f
+  end
 end

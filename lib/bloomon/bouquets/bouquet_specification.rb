@@ -5,7 +5,7 @@ class Bloomon::Bouquets::BouquetSpecification
     @bouquet_name = bouquet_name
     @bouquet_size = bouquet_size
     @flowers = flowers
-    @total = total
+    @total = total.to_i
   end
 
 end
