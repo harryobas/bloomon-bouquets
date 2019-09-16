@@ -29,18 +29,20 @@ class Bloomon::Bouquets::BouquetSpecParser
       end
 
       attrs = attrs.each_slice(2).map(&:join)
-      f = []
+      f =[]
 
       attrs.each do |a|
         if a.length > 2
           a = a.scan(/..?/)
         end
-        if a[1].length == 2
-          a[1] = a[1][1]
+        begin
+          if a[1].length == 2
+            a[1] = a[1][1]
+          end
+        rescue StandardError => e
+          return nil
         end
         f << Bloomon::Bouquets::FlowerSpecification.new(a[0], a[1])
-      rescue StandardError => e
-        raise StandardError.new "something went wrong"
       end
       spec_attr[:flowers] = f
       spec_attr

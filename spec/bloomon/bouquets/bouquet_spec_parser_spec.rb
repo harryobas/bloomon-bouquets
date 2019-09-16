@@ -26,5 +26,10 @@ RSpec.describe Bloomon::Bouquets::BouquetSpecParser do
         expect(attrs).to be_a Hash
       end
     end
+    context 'when unable to parse bouquet spec string' do
+      it 'should return nothing' do
+        expect(Bloomon::Bouquets::BouquetSpecParser.parse_spec "AL10a15b5c30").to eq nil
+      end
+    end
   end
 end
