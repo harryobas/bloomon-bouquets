@@ -1,4 +1,5 @@
 require 'bloomon/bouquets/bouquet_model'
+require "bloomon/bouquets/flower"
 
 class Bloomon::Bouquets::BouquetCreator
   def initialize (spec, flowers)

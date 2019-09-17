@@ -16,7 +16,7 @@ end
 def get_bouquet_specs(contents)
   contents.select{|c| c.length > 2}.map do |c|
     Bloomon::Bouquets::BouquetSpecParser.parse_spec(c)
-  end.reject{|c| c == nil}
+  end.reject(&:nil?)
 end
 
 def get_flowers(contents)
@@ -31,7 +31,7 @@ def generate_bouquets(specs, flowers)
   specs.each do |s|
     bouquets << Bloomon::Bouquets::BouquetCreator.new(s, flowers).create_bouquet
   end
-  bouquets.reject{|b| b == nil}
+  bouquets.reject(&:nil?)
 end
 
 def main(file)
