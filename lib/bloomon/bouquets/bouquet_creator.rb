@@ -46,13 +46,13 @@ class Bloomon::Bouquets::BouquetCreator
 
   def generate_complete_bouquet(bouquet, flowers)
     out_standing_flowers = bouquet.total - bouquet.flowers_qty.values.reduce(&:+)
-    additional_flowers = flowers.take(80).shuffle.select{|f| f[1] == bouquet.size}.slice(0..out_standing_flowers)
+    additional_flowers = flowers.take(200).shuffle.select{|f| f[1] == bouquet.size}.slice(0..out_standing_flowers-1)
 
     additional_flowers.each do |af|
       bouquet.add_flower Bloomon::Bouquets::Flower.new(af[0])
     end
 
-    bouquet
+    return bouquet if bouquet.flowers.count == bouquet.total
 
   end
 

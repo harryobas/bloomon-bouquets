@@ -31,7 +31,7 @@ def generate_bouquets(specs, flowers)
   specs.each do |s|
     bouquets << Bloomon::Bouquets::BouquetCreator.new(s, flowers).create_bouquet
   end
-  bouquets.reject{|h| h == nil}
+  bouquets.reject{|b| b == nil}
 end
 
 def main(file)
