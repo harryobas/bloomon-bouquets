@@ -2,8 +2,6 @@
 
 An application that takes the design specs (the rules) and the stream of flowers as an input, and produce the stream of bouquets as an output. Can also be included is a gem (library) in other applications/projects.
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 To use as a gem/library in other applications/projects
